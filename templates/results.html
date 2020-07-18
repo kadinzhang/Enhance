@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Results</title>
+		<!-- Font Awesome -->
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" />
+		<!-- Google Fonts -->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+		<!-- Bootstrap core CSS -->
+		<link
+			href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css"
+			rel="stylesheet"
+		/>
+		<!-- Material Design Bootstrap -->
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.0/css/mdb.min.css" rel="stylesheet" />
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<!-- Bootstrap tooltips -->
+		<script
+			type="text/javascript"
+			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"
+		></script>
+		<!-- Bootstrap core JavaScript -->
+		<script
+			type="text/javascript"
+			src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"
+		></script>
+		<!-- MDB core JavaScript -->
+		<script
+			type="text/javascript"
+			src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.0/js/mdb.min.js"
+		></script>
+
+		<!-- Slider -->
+		<!-- <script
+			type="module"
+			src="https://unpkg.com/img-comparison-slider@latest/dist/component/component.esm.js"
+		></script>
+		<script nomodule="" src="https://unpkg.com/img-comparison-slider@latest/dist/component/component.js"></script>
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/img-comparison-slider@latest/dist/collection/styles/initial.css"
+		/> -->
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+	</head>
+
+	<body onload="imageDimensions()">
+		<div class="container main">
+			<center>
+				<h1>Results</h1>
+				<p class="subhead">
+					Your image's resolution has quadrupled! Check out your before and after below.
+					<br />
+					For more information about how Enhance works, check out the
+					<a href="https://github.com/kadinzhang/Enhance">github</a>.
+				</p>
+				<div class="raised" style="padding:0">
+					<!-- <p class="seched">Compare</p> -->
+					<div class="slide-comparison">
+						<img src="outputs/{{ filename }}" style="width: 100%" />
+						<div class="resized">
+							<img src="uploads/{{ filename }}" data-id="2" style="width: 100%" />
+						</div>
+						<div class="divider"></div>
+					</div>
+				</div>
+				<div class="raised row">
+					<div class="col" style="padding-left: 0; padding-right: 8px">
+						<p class="reshead">Old Resolution:</p>
+						<p class="resolution" id="inputres"></p>
+						<img class="previews" id="input" src="uploads/{{ filename }}" />
+						<p class="left">{{ filename }} <span class="x4">4x</span></p>
+					</div>
+					<div class="col" style="padding-right: 0;padding-left: 8px;">
+						<p class="reshead">New Resolution:</p>
+						<p class="resolution" id="outputres"></p>
+						<img class="previews" id="output" src="outputs/{{ filename }}" />
+						<a download="{{ filename }}" href="outputs/{{ filename }}" class="download-button right">
+							<svg class="svg-icon" viewBox="0 0 20 20" style="height: 25px; margin-top: -8px">
+								<path
+									fill="#3a155a"
+									d="M15.608,6.262h-2.338v0.935h2.338c0.516,0,0.934,0.418,0.934,0.935v8.879c0,0.517-0.418,0.935-0.934,0.935H4.392c-0.516,0-0.935-0.418-0.935-0.935V8.131c0-0.516,0.419-0.935,0.935-0.935h2.336V6.262H4.392c-1.032,0-1.869,0.837-1.869,1.869v8.879c0,1.031,0.837,1.869,1.869,1.869h11.216c1.031,0,1.869-0.838,1.869-1.869V8.131C17.478,7.099,16.64,6.262,15.608,6.262z M9.513,11.973c0.017,0.082,0.047,0.162,0.109,0.226c0.104,0.106,0.243,0.143,0.378,0.126c0.135,0.017,0.274-0.02,0.377-0.126c0.064-0.065,0.097-0.147,0.115-0.231l1.708-1.751c0.178-0.183,0.178-0.479,0-0.662c-0.178-0.182-0.467-0.182-0.645,0l-1.101,1.129V1.588c0-0.258-0.204-0.467-0.456-0.467c-0.252,0-0.456,0.209-0.456,0.467v9.094L8.443,9.553c-0.178-0.182-0.467-0.182-0.645,0c-0.178,0.184-0.178,0.479,0,0.662L9.513,11.973z"
+								></path>
+							</svg>
+							Download</a
+						>
+					</div>
+				</div>
+				<form action="/" method="GET" enctype="multipart/form-data">
+					<button type="submit" class="btn submit-button" style="margin-bottom: 200px; text-transform: none">
+						Search something else
+					</button>
+				</form>
+			</center>
+		</div>
+		<!-- <img-comparison-slider>
+      <img slot="before" src="uploads/{{ filename }}" />
+      <img slot="after" src="outputs/{{ filename }}" />
+    </img-comparison-slider> -->
+		<script>
+			function imageDimensions() {
+				var input = document.querySelector('#input');
+				var output = document.querySelector('#output');
+
+				var inputWidth = input.naturalWidth;
+				var inputHeight = input.naturalHeight;
+				var outputWidth = output.naturalWidth;
+				var outputHeight = output.naturalHeight;
+
+				document.getElementById('inputres').innerText = inputWidth + 'x' + inputHeight;
+				document.getElementById('outputres').innerText = outputWidth + 'x' + outputHeight;
+			}
+		</script>
+		<script>
+			let bindComparison = (handle, resized, container) => {
+				let moveWidth = 0;
+
+				let scrollBlock = e => {
+					e.preventDefault();
+				};
+
+				let unbindScrollBlock = e => {
+					document.removeEventListener('touchmove', scrollBlock);
+				};
+
+				let getPageX = e => {
+					if (e.pageX || e.targetTouches[0].pageX) {
+						return e.pageX || e.targetTouches[0].pageX;
+					} else if (typeof e.originalEvent !== 'undefined') {
+						return e.originalEvent.targetTouches[0].pageX;
+					} else {
+						return false;
+					}
+				};
+
+				let moveSlide = e => {
+					document.addEventListener('touchmove', scrollBlock, false);
+
+					let pageX = getPageX(e);
+
+					if (pageX !== false) {
+						moveWidth = ((pageX - container.offsetLeft - 1) * 100) / container.offsetWidth + '%';
+
+						handle.style.left = moveWidth;
+						resized.style.width = moveWidth;
+					}
+				};
+
+				// Bind events to container
+				container.addEventListener('mousemove', moveSlide);
+				container.addEventListener('touchmove', moveSlide);
+				container.addEventListener('touchend', unbindScrollBlock);
+			};
+
+			// Get sliders and iterate on them
+			let sliders = Array.prototype.slice.call(document.querySelectorAll('.slide-comparison'), 0);
+			sliders.forEach((element, index, array) => {
+				element.querySelector('.resized img').style.width = element.offsetWidth + 'px';
+				bindComparison(element.querySelector('.divider'), element.querySelector('.resized'), element);
+			});
+
+			// On window resize
+			window.onresize = event => {
+				sliders.forEach((element, index, array) => {
+					element.querySelector('.resized img').style.width = element.offsetWidth + 'px';
+				});
+			};
+		</script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	</body>
+</html>

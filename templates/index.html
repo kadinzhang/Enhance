@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<title>Enhance - Image Upscaler</title>
+		<!-- Bootstrap -->
+		<link
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
+			crossorigin="anonymous"
+		/>
+		<script
+			src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js"
+			integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+			integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+			crossorigin="anonymous"
+		></script>
+		<!-- Dropzone.js -->
+		<script
+			type="text/javascript"
+			src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.1/min/dropzone.min.js"
+		></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.1/min/dropzone.min.css" />
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+	</head>
+
+	<body>
+		<div>
+			<!-- <form action="/results" class="dropzone" id="my-awesome-dropzone"></form> -->
+		</div>
+
+		<div class="container main">
+			<center>
+				<h1>Enhance</h1>
+				<p class="subhead">Upscale your images with deep learning</p>
+				<div class="raised">
+					<form action="/results" method="POST" enctype="multipart/form-data" onsubmit="startLoad()">
+						<div class="upload-btn-wrapper">
+							<img src="/static/images/upload-purple.png" alt="" class="upload" />
+							<p class="upload-text" id="upload-text"><b>Choose a file</b> or drop it here.</p>
+							<p class="upload-text-secondary">Supported file types: JPG, PNG</p>
+
+							<input type="file" name="file" class="file" id="file" required />
+						</div>
+						<button type="submit" class="submit-button btn">
+							Enhance Image
+							<svg
+								version="1.1"
+								id="L7"
+								xmlns="http://www.w3.org/2000/svg"
+								xmlns:xlink="http://www.w3.org/1999/xlink"
+								x="0px"
+								y="0px"
+								viewBox="0 0 100 100"
+								enable-background="new 0 0 100 100"
+								xml:space="preserve"
+							>
+								<path
+									fill="#fff"
+									d="M31.6,3.5C5.9,13.6-6.6,42.7,3.5,68.4c10.1,25.7,39.2,38.3,64.9,28.1l-3.1-7.9c-21.3,8.4-45.4-2-53.8-23.3
+                c-8.4-21.3,2-45.4,23.3-53.8L31.6,3.5z"
+								>
+									<animateTransform
+										attributeName="transform"
+										attributeType="XML"
+										type="rotate"
+										dur="2s"
+										from="0 50 50"
+										to="360 50 50"
+										repeatCount="indefinite"
+									/>
+								</path>
+								<path
+									fill="#fff"
+									d="M42.3,39.6c5.7-4.3,13.9-3.1,18.1,2.7c4.3,5.7,3.1,13.9-2.7,18.1l4.1,5.5c8.8-6.5,10.6-19,4.1-27.7
+                c-6.5-8.8-19-10.6-27.7-4.1L42.3,39.6z"
+								>
+									<animateTransform
+										attributeName="transform"
+										attributeType="XML"
+										type="rotate"
+										dur="1s"
+										from="0 50 50"
+										to="-360 50 50"
+										repeatCount="indefinite"
+									/>
+								</path>
+								<path
+									fill="#fff"
+									d="M82,35.7C74.1,18,53.4,10.1,35.7,18S10.1,46.6,18,64.3l7.6-3.4c-6-13.5,0-29.3,13.5-35.3s29.3,0,35.3,13.5
+                L82,35.7z"
+								>
+									<animateTransform
+										attributeName="transform"
+										attributeType="XML"
+										type="rotate"
+										dur="2s"
+										from="0 50 50"
+										to="360 50 50"
+										repeatCount="indefinite"
+									/>
+								</path>
+							</svg>
+						</button>
+
+						<!-- <div class="form-group">
+					<label>Select image</label>
+					<div class="custom-file">
+						<input type="file" class="custom-file-input" name="file" id="image" />
+						<label class="custom-file-label" for="image">Select image...</label>
+					</div>
+				</div>
+				<center>
+					<button type="submit" class="btn btn-primary">Upload</button>
+				</center> -->
+					</form>
+				</div>
+			</center>
+		</div>
+
+		<script>
+			function startLoad() {
+				document.getElementById('L7').classList.add('loaded');
+			}
+
+			document.getElementById('file').onchange = function() {
+				document.getElementById('upload-text').innerText = document.getElementById('file').files[0].name;
+			};
+		</script>
+	</body>
+</html>
